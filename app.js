@@ -1,16 +1,13 @@
 const express = require('express');
 const { createTracing } = require('trace_events');
 const morgan = require('morgan');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const rateLimit = require('express-rate-limit');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const helmet = require('helmet');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoSanitize = require('express-mongo-sanitize');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const xss = require('xss-clean');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const hpp = require('hpp');
+
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -58,6 +55,8 @@ app.use(
     ],
   }),
 );
+
+app.use(compression());
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
