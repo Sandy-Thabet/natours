@@ -17,6 +17,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
+// Start express app
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
