@@ -6,6 +6,11 @@ const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authConrtoller');
 // router.param('id', tourController.checkId);
 
+const reviewController = require('../controllers/reviewController');
+const reviewRouter = require('./reviewRoutes');
+
+router.use('/:tourId/reviews', reviewRouter);
+
 router
   .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTours);
@@ -26,6 +31,14 @@ router
     authController.protect,
     authController.restirctTo('admin', 'lead-guide'),
     tourController.deleteTour,
+  );
+
+router
+  .route('/:tourId/reviews')
+  .post(
+    authController.protect,
+    authController.restirctTo('user'),
+    reviewController.createNewReview,
   );
 
 module.exports = router;
